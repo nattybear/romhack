@@ -1,0 +1,9 @@
+01ff=face(num)
+05ff=music(num)
+07ff=display
+08ff=screen
+09ff=background(num)
+0eff=wait(time)
+11ff=end
+
+
