@@ -8,26 +8,30 @@ if len(argv) != 3:
 dump = argv[1]
 csv = argv[2]
 
-fp1 = open(dump, 'rb')
-buf1 = fp1.read()
-fp1.close()
+csv_fp = open(csv, 'rb')
+csv_buf = csv_fp.read()
+csv_fp.close()
 
-fp2 = open(csv, 'rb')
-buf2 = fp2.read()
-fp2.close()
+csv_list = csv_buf.split(b'\x0d\x0a')
+csv_dic = {}
 
-list = buf2.split(b'\x0d\x0a')
+for a, b in enumerate(csv_list):
+    csv_dic[a] = b
 
-for index, char in enumerate(list):
-    index = pack('H', index)
-    buf1 = buf1.replace(index, char)
-    
-buf1 = buf1.replace(b'\xff\xff', b'\x0d\x0a')
-buf1 = b'\xef\xbb\xbf' + buf1
+dump_fp = open(dump, 'rb')
 
 new = dump.split('.')[0] + '.txt'
-fp = open(new, 'wb')
-fp.write(buf1)
-fp.close()
+new_fp = open(new, 'wb')
+
+while True:
+    try:
+        dump_buf = dump_fp.read(2)
+        num = unpack('H', dump_buf)[0]
+        if num in csv_dic.keys():
+            new_fp.write(dump_buf)
+    except:
+        break
+        
+new_fp.close()
 
 print '[*]', new, 'saved'
