@@ -40,6 +40,11 @@ while True:
         elif buf == 0xff11: # end(a)
             fp.read(2)
             continue
+        elif buf == 0xffff: # enter
+            buf = pack('H', buf)
+            fp1.write(buf)
+        elif buf > 0xff00: # etc
+            continue
         else:
             buf = pack('H', buf)
             fp1.write(buf)
