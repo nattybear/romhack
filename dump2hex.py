@@ -1,33 +1,43 @@
 from sys import argv, exit
+from struct import unpack, error
 from binascii import hexlify
 
-def split2(buf):
-    tmp = ''
-    while buf != '':
-        tmp = tmp + buf[:2] + ' '
-        buf = buf[2:]
-    return tmp
+if len(argv) != 3:
+  print '[*] Usage: python dump2hex.py <dump> <csv>'
+  exit()
 
-if len(argv) != 2:
-    print '[*] Usage: python dump2hex.py <dump>'
-    exit()
-    
 dump = argv[1]
+csv = argv[2]
 
-fp1 = open(dump, 'rb')
-buf1 = fp1.read()
-fp1.close()
+fp = open(csv, 'rb')
+buf = fp.read()
+fp.close()
+list = buf.split(b'\x0d\x0a')
 
-list = buf1.split(b'\xff\xff')
+fp = open(dump, 'rb')
+buf1 = ''
+
+while True:
+  buf = fp.read(2)
+  try:
+    num = unpack('H', buf)[0]
+    if num == 65535:
+      buf1 = buf1 + b'\x0d\x0a'
+      continue
+  except error:
+    break
+
+  try:
+    list[num]
+    buf1 = buf1 + hexlify(buf) + ' '
+  except IndexError:
+    buf1 = buf1 + '{' + hexlify(buf) + '}'
+
+fp.close()
 
 new = dump.split('.')[0] + '.hex'
-fp2 = open(new, 'wb')
+fp = open(new, 'wb')
+fp.write(buf1)
+fp.close()
 
-for i in list:
-    i = hexlify(i)
-    i = split2(i)
-    fp2.write(i + b'\x0d\x0a')
-
-fp2.close()
-
-print '[*]', new, 'saved'    
+print '[*]', new, 'saved'
