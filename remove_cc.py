@@ -37,6 +37,9 @@ while True:
         elif buf == 0xff0e: # wait(time)
             fp.read(2)
             continue
+        elif buf == 0xff10: # unknown(a)
+            fp.read(2)
+            continue
         elif buf == 0xff11: # end(a)
             fp.read(2)
             continue
