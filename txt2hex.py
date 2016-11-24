@@ -23,6 +23,8 @@ while True:
     buf1 = fp1.read(3)
     for a, b in enumerate(list):
         if buf1 == b:
-            print hexlify(pack('H', a))
+            print hexlify(pack('H', a)),
         else:
             continue
+    if len(buf1) == 0:
+        break
