@@ -1,31 +1,31 @@
-from __future__ import print_function
 from sys import argv, exit
 from struct import pack
 from binascii import hexlify
 
 if len(argv) != 3:
-    print('[*] Usage: python txt2hex.py <txt> <csv>')
-    exit()
+  print 'Usage: python', argv[0], '<txt>', '<csv>'
+  exit()
 
 txt = argv[1]
 csv = argv[2]
+new = 'hex_' + txt
 
 fp1 = open(txt, 'rb')
-
 fp2 = open(csv, 'rb')
+fp3 = open(new, 'wb')
+
+buf1 = fp1.read()
+buf1 = buf1[3:]
 buf2 = fp2.read()
-fp2.close()
+buf2 = buf2[3:]
 
-list = buf2.split(b'\x0d\x0a')
+list2 = buf2.split(b'\x0d\x0a')
 
-fp1.seek(3)
+for a, b in enumerate(list2):
+  a = pack('H', a)
+  a = hexlify(a)
+  buf1 = buf1.replace(b, a)
 
-while True:
-    buf1 = fp1.read(3)
-    for a, b in enumerate(list):
-        if buf1 == b:
-            print(hexlify(pack('H', a)), end='')
-        else:
-            continue
-    if len(buf1) == 0:
-        break
+fp3.write(buf1)
+
+print '[*]', new, 'saved'
