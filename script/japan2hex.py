@@ -9,12 +9,12 @@ if len(argv) != 2:
   exit()
 
 japan = argv[1]
-new = 'out_' + japan
+new = 'japan_hex.bin'
 
 fp1 = open(japan, 'rb')
 fp2 = open(new, 'wb')
 
-buf1 = fp1.read()
+buf1 = fp1.read().replace(b'\xef\xbb\xbf', '')
 
 mylist1 = buf1.split(b'\x0d\x0a')
 mylist2 = []
