@@ -36,7 +36,12 @@ def readline(line):
     if len(buf) == 0: break
     
     buf2 = unpack('B', buf)[0]
-    if buf2 < 0xe0:
+
+    if buf2 == 0x20:
+      ret = ret + db(buf)
+
+    elif buf2 == 0xd0:
+      buf = buf + fp.read(1)
       ret = ret + db(buf)
 
     else:
