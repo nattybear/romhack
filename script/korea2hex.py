@@ -1,4 +1,4 @@
-from sys import argv
+from sys import argv, exit
 from StringIO import StringIO
 from sqlite3 import connect
 from binascii import unhexlify, hexlify
@@ -34,6 +34,9 @@ def read1byte(line):
 
     return buf
 
+if len(argv) != 2:
+  print 'Usage:', 'korea2hex.py', '<txt>'
+  exit()
 
 fp = open(argv[1], 'rb')
 fp1 = open('output.bin', 'wb')
