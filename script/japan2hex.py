@@ -5,7 +5,7 @@ from struct import unpack
 from binascii import unhexlify, hexlify
 
 if len(argv) != 2:
-  print 'Usage:', argv[0], '<japan>'
+  print 'Usage:', 'japan2hex.py', '<japan>'
   exit()
 
 japan = argv[1]
