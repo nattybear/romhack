@@ -1,7 +1,7 @@
 from sys import argv, exit
 
 if len(argv) != 4:
-  print 'Usage:', argv[0], '<rom>', '<japan>', '<korea>'
+  print 'Usage:', 'japan2korea.py', '<rom>', '<japan>', '<korea>'
   exit()
 
 rom = argv[1]
