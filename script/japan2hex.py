@@ -9,7 +9,7 @@ if len(argv) != 2:
   exit()
 
 japan = argv[1]
-new = 'japan_hex.bin'
+new = 'japan.hex'
 
 fp1 = open(japan, 'rb')
 fp2 = open(new, 'wb')

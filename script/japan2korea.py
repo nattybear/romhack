@@ -19,8 +19,8 @@ buf2 = fp2.read()
 buf3 = fp3.read()
 buf4 = buf1
 
-list2 = buf2.split(b'\x0d\x0a')
-list3 = buf3.split(b'\x0d\x0a')
+list2 = buf2.split(b'\x0d\x0a').reverse()
+list3 = buf3.split(b'\x0d\x0a').reverse()
 
 size2 = len(list2)
 size3 = len(list3)

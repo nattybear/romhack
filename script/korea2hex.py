@@ -21,7 +21,7 @@ def read1byte(line):
         if len(buf1) == 0: break
         buf2 = unpack('B', buf1)[0]
 
-        if buf2 < 0xa1:
+        if buf2 < 0xa0:
             buf1 = hexlify(buf1)
             ret = char2num(buf1)
             buf = buf + ret
