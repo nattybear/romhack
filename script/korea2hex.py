@@ -52,4 +52,4 @@ buf1 = b'\x0d\x0a'.join(mylist2)
 
 fp1.write(buf1)
 
-print '[*]', 'output.bin', 'saved'
+print '[*]', 'korea.bin', 'saved'
