@@ -39,7 +39,7 @@ if len(argv) != 2:
   exit()
 
 fp = open(argv[1], 'rb')
-fp1 = open('output.bin', 'wb')
+fp1 = open('korea.bin', 'wb')
 
 buf = fp.read()
 mylist = buf.split(b'\x0d\x0a')
